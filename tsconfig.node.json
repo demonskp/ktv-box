@@ -4,7 +4,16 @@
     "module": "ESNext",
     "moduleResolution": "Node",
     "resolveJsonModule": true,
+    "baseUrl": "./",
+    "paths": {
+      "#/*": [
+        "electron/*"
+      ]
+    },
     "allowSyntheticDefaultImports": true
   },
-  "include": ["vite.config.ts", "package.json"]
+  "include": [
+    "vite.config.ts",
+    "package.json"
+  ]
 }

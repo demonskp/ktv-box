@@ -16,7 +16,8 @@ export default defineConfig(({ command }) => {
   return {
     resolve: {
       alias: {
-        '@': path.join(__dirname, 'src')
+        '@': path.join(__dirname, 'src'),
+        '#': path.join(__dirname, 'electron'),
       },
     },
     plugins: [
@@ -39,6 +40,12 @@ export default defineConfig(({ command }) => {
               outDir: 'dist-electron/main',
               rollupOptions: {
                 external: Object.keys('dependencies' in pkg ? pkg.dependencies : {}),
+              },
+            },
+            resolve: {
+              alias: {
+                '@': path.join(__dirname, 'src'),
+                '#': path.join(__dirname, 'electron'),
               },
             },
           },
