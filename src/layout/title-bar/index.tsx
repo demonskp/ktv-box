@@ -7,12 +7,16 @@ import {
   MinusCircleFilled,
   MinusOutlined,
 } from "@ant-design/icons";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import classNames from "classnames";
 import { WindowInterface } from "@/interface";
+import { useMouse } from "ahooks";
 
 export default function TitleBar() {
   const [max, setMax] = useState(false);
+  const refs = useRef<HTMLDivElement>(null);
+
+  const mouse = useMouse(refs);
 
   const menus = useMemo<MenuProps["items"]>(() => {
     return [
@@ -42,39 +46,52 @@ export default function TitleBar() {
   }
 
   function maxHandle() {
-    WindowInterface.maxWindow().then((isMax) => {
+    WindowInterface.maxWindow(max).then((isMax) => {
+      console.log(isMax);
       setMax(isMax);
     });
   }
 
   return (
-    <div className={styles.title_bar} onDoubleClick={maxHandle}>
-      <div>
-        <Dropdown
-          trigger={["click"]}
-          menu={{ items: menus }}
-          placement="bottomRight"
-        >
-          <MenuOutlined className={styles.menu_item} />
-        </Dropdown>
-      </div>
-      <div className={styles.title}></div>
-      <div>
-        <Space>
-          <MinusOutlined className={styles.menu_item} onClick={minHandle} />
-          {max ? (
-            <span
-              className={classNames(
-                "iconfont icon-xiangxiahuanyuan",
-                styles.menu_item
-              )}
-              onClick={maxHandle}
+    <div
+      className={styles.title_bar_container}
+      ref={refs}
+      style={{ top: mouse.clientY > 43 ? -43 : 0 }}
+    >
+      <div className={styles.title_bar}>
+        <div>
+          <Dropdown
+            trigger={["click"]}
+            menu={{ items: menus }}
+            placement="bottomRight"
+          >
+            <MenuOutlined className={styles.menu_item} />
+          </Dropdown>
+        </div>
+        <div className={styles.title} onDoubleClick={maxHandle}></div>
+        <div>
+          <Space>
+            <MinusOutlined className={styles.menu_item} onClick={minHandle} />
+            {max ? (
+              <span
+                className={classNames(
+                  "iconfont icon-xiangxiahuanyuan",
+                  styles.menu_item
+                )}
+                onClick={maxHandle}
+              />
+            ) : (
+              <BorderOutlined
+                className={styles.menu_item}
+                onClick={maxHandle}
+              />
+            )}
+            <CloseOutlined
+              className={styles.close_item}
+              onClick={closeHandle}
             />
-          ) : (
-            <BorderOutlined className={styles.menu_item} onClick={maxHandle} />
-          )}
-          <CloseOutlined className={styles.close_item} onClick={closeHandle} />
-        </Space>
+          </Space>
+        </div>
       </div>
     </div>
   );

@@ -45,7 +45,6 @@ export async function createMainWindow() {
     width: 1200,
     height: 800,
     transparent: true,
-    backgroundColor: "rgba(0, 0, 0, 0)",
   });
 
   // win.webContents.openDevTools()

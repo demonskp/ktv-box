@@ -2,12 +2,20 @@
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background-color: transparent;
+  background: transparent;
 
-  .content {
+  .layout_content {
     width: 100%;
-    height: calc(100% - 43px);
-    overflow-y: auto;
-    overflow-x: hidden;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+    background-image: linear-gradient(to right, #434343 0%, black 100%);
+
+    .content {
+      width: 100%;
+      height: calc(100% - 43px);
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
   }
 }

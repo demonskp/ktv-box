@@ -6,8 +6,8 @@ export function minWindow() {
   window.ipcRenderer.invoke("min_window");
 }
 
-export function maxWindow() {
-  return window.ipcRenderer.invoke("max_window");
+export function maxWindow(max: boolean) {
+  return window.ipcRenderer.invoke("max_window", { max });
 }
 
 export function devTool() {
